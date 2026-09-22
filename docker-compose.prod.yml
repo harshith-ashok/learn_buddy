@@ -1,0 +1,85 @@
+# Production overlay. Never merged automatically — unlike
+# docker-compose.override.yml (dev bind-mounts, hot reload, and the
+# datastore host ports it adds back for local access), Compose only
+# applies this file when you name it explicitly, which also means the
+# implicit override.yml is *not* applied alongside it:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# What this changes vs. the base file (which, on its own, already has no
+# dev bind-mounts and no published datastore ports — both only exist in
+# docker-compose.override.yml):
+#   - restart: always (vs. unless-stopped) — comes back up after a host
+#     reboot even if it was never explicitly restarted since the last stop.
+#   - Per-service CPU/memory limits and reservations (`deploy.resources`
+#     is honored by plain `docker compose up`, not just Swarm).
+#   - Log rotation (json-file, 10MB x 5 files per service) — the base
+#     file's default logging driver has no size cap, and this is a
+#     long-running deployment, not a dev session you restart often.
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  postgres:
+    restart: always
+    logging: *default-logging
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+  redis:
+    restart: always
+    logging: *default-logging
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.1"
+          memory: 128M
+
+  chromadb:
+    restart: always
+    logging: *default-logging
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
+        reservations:
+          cpus: "0.25"
+          memory: 512M
+
+  backend:
+    restart: always
+    logging: *default-logging
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+
+  frontend:
+    restart: always
+    logging: *default-logging
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
