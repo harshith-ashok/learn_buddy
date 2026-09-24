@@ -1,0 +1,88 @@
+/* Design tokens. Components reference these via Tailwind utilities
+   (bg-brand-600, text-ink-muted, rounded-card, ...) — never a raw hex
+   value or arbitrary Tailwind bracket value in a component file.
+
+   Study Ledger palette: a single deliberate dark theme (no light mode) —
+   an editorial, ledger-like reading surface rather than a generic SaaS
+   dashboard. Named `--color-brand-*` for compatibility with existing
+   component classnames, but the hue is mustard, not indigo. */
+
+:root {
+  --color-brand-50: #3e3018;
+  --color-brand-100: #4a3a1d;
+  --color-brand-200: #5c481f;
+  --color-brand-300: #8a6c30;
+  --color-brand-400: #c49a4c;
+  --color-brand-500: #ddab4c;
+  --color-brand-600: #ddab4c;
+  --color-brand-700: #ebc06a;
+  --color-brand-800: #f2d38f;
+  --color-brand-900: #f8e6bd;
+
+  --color-moss: #8cab80;
+  --color-moss-tint: #253626;
+  --color-rust: #cb6c48;
+  --color-rust-tint: #3b241b;
+  --color-mustard: #ddab4c;
+  --color-mustard-tint: #3e3018;
+
+  --color-surface: #10151a;
+  --color-surface-raised: #171e24;
+  --color-surface-sunken: #0c1014;
+  --color-border: #2c363e;
+  --color-border-soft: #202930;
+  --color-ink: #edf1f3;
+  --color-ink-muted: #889299;
+  --color-ink-faint: #566067;
+
+  --color-success: var(--color-moss);
+  --color-success-surface: var(--color-moss-tint);
+  --color-warning: var(--color-mustard);
+  --color-warning-surface: var(--color-mustard-tint);
+  --color-danger: var(--color-rust);
+  --color-danger-surface: var(--color-rust-tint);
+
+  --radius-card: 0.25rem;
+  --radius-control: 0.125rem;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-brand-50: var(--color-brand-50);
+  --color-brand-100: var(--color-brand-100);
+  --color-brand-200: var(--color-brand-200);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-400: var(--color-brand-400);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-700: var(--color-brand-700);
+  --color-brand-800: var(--color-brand-800);
+  --color-brand-900: var(--color-brand-900);
+
+  --color-moss: var(--color-moss);
+  --color-moss-tint: var(--color-moss-tint);
+  --color-rust: var(--color-rust);
+  --color-rust-tint: var(--color-rust-tint);
+  --color-mustard: var(--color-mustard);
+  --color-mustard-tint: var(--color-mustard-tint);
+
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-surface-sunken: var(--color-surface-sunken);
+  --color-border: var(--color-border);
+  --color-border-soft: var(--color-border-soft);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-faint: var(--color-ink-faint);
+
+  --color-success: var(--color-success);
+  --color-success-surface: var(--color-success-surface);
+  --color-warning: var(--color-warning);
+  --color-warning-surface: var(--color-warning-surface);
+  --color-danger: var(--color-danger);
+  --color-danger-surface: var(--color-danger-surface);
+
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
+}
